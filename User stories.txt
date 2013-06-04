@@ -1,0 +1,10 @@
+
+Q&A
+
+- Type              - I want to                  - So that
+Question creator        Create a question           People can answer the question
+Question creator        Accept an answer            Its clear what the correct answer is
+
+Answer creator          Create an answer            I can help out the question creator
+
+All visitor             Vote on answers             To make sure only the best answers stay on top
