@@ -1,6 +1,7 @@
 <?php namespace Hermes\Questions\Controllers;
 
 use View;
+use Redirect;
 use Hermes\Questions\Repositories\QuestionRepository;
 
 class QuestionController extends \Controller {
@@ -18,21 +19,21 @@ class QuestionController extends \Controller {
 
     public function show($uniqueId, $slug)
     {
-        $question = $this->questionRepository->getQuestion($uniqueId);
+        $question = $this->questionRepository->findByUniqueId($uniqueId);
         return View::make('questions.show')->with(compact('question'));
     }
 
     public function voteUp($uniqueId)
     {
-        $question = $this->questionRepository->getQuestion($uniqueId);
+        $question = $this->questionRepository->findByUniqueId($uniqueId);
         $question->incrementScore();
-        return $question->score;
+        return Redirect::back();
     }
 
     public function voteDown($uniqueId)
     {
-        $question = $this->questionRepository->getQuestion($uniqueId);
+        $question = $this->questionRepository->findByUniqueId($uniqueId);
         $question->decrementScore();
-        return $question->score;
+        return Redirect::back();
     }
 }

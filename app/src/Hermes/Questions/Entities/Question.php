@@ -9,7 +9,7 @@ class Question extends \Eloquent
     // Relations
     public function answers()
     {
-        return $this->hasMany('Hermes\Questions\Entities\Answer');
+        return $this->hasMany('Hermes\Questions\Entities\Answer')->orderBy('score', 'DESC')->orderBy('created_at', 'DESC')->where('answer_id', 0);
     }
 
     public function setUniqueIdAttribute()

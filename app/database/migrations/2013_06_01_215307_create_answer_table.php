@@ -23,6 +23,7 @@ class CreateAnswerTable extends Migration {
             // Relations
             $table->integer('user_id');
             $table->integer('question_id');
+            $table->integer('answer_id');
 
             // Timestamps
             $table->timestamps();

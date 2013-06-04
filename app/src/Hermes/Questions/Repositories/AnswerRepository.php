@@ -2,15 +2,17 @@
 
 use Hermes\Questions\Entities\Answer;
 use Hermes\Questions\Entities\Question;
+use Hermes\Questions\Repositories\QuestionRepository;
 
 class AnswerRepository
 {
-    public function __construct(Answer $answer)
+    public function __construct(Answer $answer, QuestionRepository $question)
     {
         $this->answer = $answer;
+        $this->question = $question;
     }
 
-    public function getAnswer($answerId)
+    public function findById($answerId)
     {
         return $this->answer->find($answerId);
     }
@@ -25,8 +27,9 @@ class AnswerRepository
         return $this->answer->find($id)->update($input);
     }
 
-    public function saveAnswer(Question $question, Answer $answer)
+    public function saveAnswer(Answer $answer)
     {
+        $question = $this->question->findById($answer->question_id);
         $answer = $question->answers()->save($answer);
         return $answer;
     }

@@ -12,6 +12,11 @@ class Answer extends \Eloquent
         return $this->belongsTo('Hermes\Questions\Entities\Question');
     }
 
+    public function replies()
+    {
+        return $this->hasMany('Hermes\Questions\Entities\Answer');
+    }
+
     public function setAccepted()
     {
         $this->accepted = 1;
@@ -22,6 +27,11 @@ class Answer extends \Eloquent
         if($this->accepted) {
             return true;
         }
+    }
+
+    public function scopeMain($query)
+    {
+        $query->where('answer_id', 0);
     }
 
     public function incrementScore()

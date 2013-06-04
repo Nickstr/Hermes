@@ -1,6 +1,7 @@
 <?php namespace Hermes\Questions\Controllers;
 
 use Input;
+use Redirect;
 use Hermes\Questions\Repositories\AnswerRepository;
 
 class AnswerController extends \Controller {
@@ -10,22 +11,24 @@ class AnswerController extends \Controller {
         $this->answerRepository = $answerRepository;
     }
 
-    public function voteUp($uniqueId)
+    public function voteUp($answerId)
     {
-        $answer = $this->answerRepository->getAnswer($uniqueId);
+        $answer = $this->answerRepository->findById($answerId);
         $answer->incrementScore();
-        return $answer->score;
+        return Redirect::back();
     }
 
-    public function voteDown($uniqueId)
+    public function voteDown($answerId)
     {
-        $answer = $this->answerRepository->getAnswer($uniqueId);
+        $answer = $this->answerRepository->findById($answerId);
         $answer->decrementScore();
-        return $answer->score;
+        return Redirect::back();
     }
 
     public function create()
     {
         $answer = $this->answerRepository->createAnswer(Input::all());
+        $this->answerRepository->saveAnswer($answer);
+        return Redirect::back();
     }
 }

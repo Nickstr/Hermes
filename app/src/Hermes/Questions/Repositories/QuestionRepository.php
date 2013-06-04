@@ -11,10 +11,15 @@ class QuestionRepository
 
     public function getQuestions()
     {
-        return $this->question->get();
+        return $this->question->orderBy('score', 'DESC')->orderBy('created_at', 'DESC')->get();
     }
 
-    public function getQuestion($uniqueId)
+    public function findById($id)
+    {
+        return $this->question->with('answers')->find($id);
+    }
+
+    public function findByUniqueId($uniqueId)
     {
         return $this->question->with(array('answers'))->where('unique_id', $uniqueId)->first();
     }

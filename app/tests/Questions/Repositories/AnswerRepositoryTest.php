@@ -9,9 +9,9 @@ class AnswerRepositoryTest extends TestCase {
         $question = $this->questionRepository->createQuestion($input);
         $question = $this->questionRepository->saveQuestion($question);
 
-        $input = ['content' => 'Test content'];
+        $input = ['question_id' => $question->id, 'content' => 'Test content'];
         $answer = $this->answerRepository->createAnswer($input);
-        $answer = $this->answerRepository->saveAnswer($question, $answer);
+        $answer = $this->answerRepository->saveAnswer($answer);
 
         $this->assertEquals($question->id, $answer->question_id);
     }
