@@ -28,6 +28,10 @@ class AnswerController extends \Controller {
     public function create()
     {
         $answer = $this->answerRepository->createAnswer(Input::all());
+        if(!$answer->isValid()) {
+            return Redirect::back()->withErrors($answer->messages);
+        }
+
         $this->answerRepository->saveAnswer($answer);
         return Redirect::back();
     }

@@ -1,10 +1,20 @@
 <?php namespace Hermes\Questions\Entities;
 
-class Answer extends \Eloquent
+use Validator;
+use Hermes\Questions\Entities\Base;
+
+class Answer extends Base
 {
     protected $guarded = array('id');
     protected $softDelete = true;
     protected $table = 'answers';
+
+    // Validation rules
+    protected $rules = array(
+            'content' => 'required'
+        );
+
+    public $messages;
 
     // Relations
     public function question()
